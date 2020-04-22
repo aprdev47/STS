@@ -23,12 +23,12 @@ setInterval(function(){
     if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+" "+Signs[3]+".gif"))
     {
         $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+" "+Signs[3]+".gif\" />");
-        slice_no = 2
+        slice_no = 4
     }
     else if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+".gif"))
     {
         $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+".gif\" />");
-        slice_no = 2
+        slice_no = 3
     }
     else if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+".gif"))
     {
