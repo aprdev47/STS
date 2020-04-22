@@ -6,9 +6,20 @@ var Textbox = $('#textbox');
 var instructions = $('instructions');
  
 var Content = '';
+var Signs = [];
  
 recognition.continuous = true;
- 
+
+setInterval(function(){ 
+  if (Array.isArray(Signs) && Signs.length) {
+    if(Signs[0]=="") Signs.shift()
+    $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+".gif\" />");
+    setTimeout(function(){ Signs.shift() 
+    }, 1000);
+  }
+  else  $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/default.jpg\" alt=\"Oorja Sign\" />");
+}, 1000);
+
 recognition.onresult = function(event) {
  
   var current = event.resultIndex;
@@ -17,8 +28,8 @@ recognition.onresult = function(event) {
  
     Content = transcript+"<br/>"+Content;
     $('#translation-content').html(Content);
-    console.log(transcript)
-  
+    Signs = Signs.concat(transcript.split(" "));
+    console.log(Signs)
 };
  
 recognition.onstart = function() { 
@@ -44,6 +55,3 @@ $('#startTranslation').on('click', function(e) {
   recognition.start();
 });
  
-Textbox.on('input', function() {
-  Content = $(this).val();
-})
