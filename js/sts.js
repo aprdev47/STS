@@ -18,10 +18,24 @@ function ImageExist(url)
 }
 setInterval(function(){ 
   if (Array.isArray(Signs) && Signs.length) {
+    slice_no = 1
     if(Signs[0]=="") Signs.shift()
-      slice_no = 1
-    // See if the file exists
-    if(ImageExist("assets/img/"+Signs[0]+".gif"))
+    if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+" "+Signs[3]+".gif"))
+    {
+        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+" "+Signs[3]+".gif\" />");
+        slice_no = 2
+    }
+    else if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+".gif"))
+    {
+        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+".gif\" />");
+        slice_no = 2
+    }
+    else if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+".gif"))
+    {
+        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+".gif\" />");
+        slice_no = 2
+    }
+    else if(ImageExist("assets/img/"+Signs[0]+".gif"))
     {
         $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+".gif\" />");
        
