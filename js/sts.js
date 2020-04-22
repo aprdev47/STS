@@ -10,11 +10,23 @@ var Signs = [];
  
 recognition.continuous = true;
 
+function ImageExist(url) 
+{
+   var img = new Image();
+   img.src = url;
+   return img.height != 0;
+}
 setInterval(function(){ 
   if (Array.isArray(Signs) && Signs.length) {
     if(Signs[0]=="") Signs.shift()
-    $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+".gif\" />");
-    setTimeout(function(){ Signs.shift() 
+      slice_no = 1
+    // See if the file exists
+    if(ImageExist("assets/img/"+Signs[0]+".gif"))
+    {
+        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+".gif\" />");
+       
+    }
+    setTimeout(function(){ Signs = Signs.slice(slice_no) 
     }, 1000);
   }
   else  $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/default.jpg\" alt=\"Oorja Sign\" />");

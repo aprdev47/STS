@@ -10211,3 +10211,9 @@ form .row:first-child .floating-label-form-group {
 .copyright {
   background-color: #1a252f;
 }
+.sign-box img{
+  min-height: 600px;
+}
+.sign-box{
+  min-height: 600px;
+}
