@@ -66,7 +66,7 @@ setInterval(function(){
   console.log(skip)
 
   // $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/default.jpg\" alt=\"Oorja Sign\" />");
-}, 1000);
+}, 500);
 
 recognition.onresult = function(event) {
  
