@@ -5,45 +5,62 @@ var recognition = new SpeechRecognition();
 var Textbox = $('#textbox');
 var instructions = $('instructions');
  
-var Content = '';
+var Content = ''
 var Signs = [];
+var master_loop_time = 500
+var remove_count = 0
+var skip = 0
  
 recognition.continuous = true;
 
-function ImageExist(url) 
-{
+function fileExists(url) {
    var img = new Image();
    img.src = url;
    return img.height != 0;
 }
 setInterval(function(){ 
-  if (Array.isArray(Signs) && Signs.length) {
-    slice_no = 1
-    if(Signs[0]=="") Signs.shift()
-    if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+" "+Signs[3]+".gif"))
-    {
-        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+" "+Signs[3]+".gif\" />");
-        slice_no = 4
+  console.log(Signs)
+  if(skip==0){
+    Signs = Signs.slice(remove_count)
+    remove_count=0
+    if (Array.isArray(Signs) && Signs.length) {
+      if(Signs[0]=="") Signs.shift()
+      if(fileExists("assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+"_"+Signs[3]+".gif"))
+      {
+          $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+"_"+Signs[3]+".gif\" />");
+          remove_count = 4
+          skip = 4
+      }
+      else if(fileExists("assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+".gif"))
+      {
+          $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+".gif\" />");
+          remove_count = 3
+          skip = 3
+      }
+      else if(fileExists("assets/img/"+Signs[0]+"_"+Signs[1]+".gif"))
+      {
+          $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+"_"+Signs[1]+".gif\" />");
+          remove_count = 2
+          skip = 2
+      }
+      else if(fileExists("assets/img/"+Signs[0]+".gif"))
+      {
+          $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+".gif\" />");
+          console.log("word exist")
+          remove_count = 1
+          skip = skip+1
+      }
+      else {
+        $('#sign-box').html("<h1>"+Signs[0]+"</h1>");
+        remove_count = 1
+        skip = skip+1
+      }
     }
-    else if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+".gif"))
-    {
-        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+" "+Signs[2]+".gif\" />");
-        slice_no = 3
-    }
-    else if(ImageExist("assets/img/"+Signs[0]+" "+Signs[1]+".gif"))
-    {
-        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+" "+Signs[1]+".gif\" />");
-        slice_no = 2
-    }
-    else if(ImageExist("assets/img/"+Signs[0]+".gif"))
-    {
-        $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+".gif\" />");
-       
-    }
-    setTimeout(function(){ Signs = Signs.slice(slice_no) 
-    }, 1000);
   }
-  else  $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/default.jpg\" alt=\"Oorja Sign\" />");
+  else skip--
+  console.log(skip)
+
+  // $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/default.jpg\" alt=\"Oorja Sign\" />");
 }, 1000);
 
 recognition.onresult = function(event) {
