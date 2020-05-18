@@ -14,9 +14,10 @@ var skip = 0
 recognition.continuous = true;
 
 function fileExists(url) {
-   var img = new Image();
-   img.src = url;
-   return img.height != 0;
+   var http = new XMLHttpRequest();
+   http.open('HEAD', url, false);
+   http.send();
+   return http.status!=404;
 }
 setInterval(function(){ 
   console.log(Signs)
@@ -27,24 +28,28 @@ setInterval(function(){
       if(Signs[0]=="") Signs.shift()
       if(fileExists("assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+"_"+Signs[3]+".gif"))
       {
+        console.log("File Found 4")
           $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+"_"+Signs[3]+".gif\" />");
           remove_count = 4
           skip = 4
       }
       else if(fileExists("assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+".gif"))
       {
+        console.log("File Found 3")
           $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+"_"+Signs[1]+"_"+Signs[2]+".gif\" />");
           remove_count = 3
           skip = 3
       }
       else if(fileExists("assets/img/"+Signs[0]+"_"+Signs[1]+".gif"))
       {
+        console.log("File Found 2")
           $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+"_"+Signs[1]+".gif\" />");
           remove_count = 2
           skip = 2
       }
       else if(fileExists("assets/img/"+Signs[0]+".gif"))
       {
+        console.log("File Found 1")
           $('#sign-box').html("<img class=\"img-fluid\" src=\"assets/img/"+Signs[0]+".gif\" />");
           console.log("word exist")
           remove_count = 1
